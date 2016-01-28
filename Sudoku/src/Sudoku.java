@@ -56,24 +56,33 @@ public class Sudoku {
 				if(findLegal(x,y,value)==true){
 					sudokuArray[x][y]=value;
 					if(x<8){
-						System.out.println("trueX<8");
+						System.out.println("trueX<8 + "+x +" "+y + " "+ value);
 						if(solveSudoku(x+1, y)!=false){
 							return true;
 						}
+						else{
+							System.out.println("falseX<8 + "+x +" "+y +" "+value);
+							sudokuArray[x][y]=0;
+						}
 					}
 					else if(y<8){
-						 System.out.println("trueY<8");
+						 System.out.println("trueY<8 + "+x +" "+y);
 						 if(solveSudoku(0, y+1)!=false){
 							 return true;
 						 }
+						 else{
+							 System.out.println("falseY<8 + "+x +" "+y);
+							 sudokuArray[x][y]=0;
+						 }
 					}
 					else{
+						printSudoku();
 						return true;
 					}
 				}
 			}
+			System.out.println("false + "+x +" "+y);
 			printSudoku();
-			System.out.println("false");
 			return false;
 			}
 		else{
