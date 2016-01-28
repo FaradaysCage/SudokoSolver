@@ -26,9 +26,9 @@ public class Sudoku {
 		//Check Square
 		int leftMost = (x/3)*3;
 		int upperMost = (y/3)*3;
-		for(int tempY = upperMost; tempY<(upperMost+3); upperMost++){
-			for(int tempX = leftMost; tempX<(leftMost+3); tempX++){
-				if(tempX!=x & tempY!=y){
+		for(int tempX = leftMost; tempX<(leftMost+3); tempX++){
+			for(int tempY = upperMost; tempY<(upperMost+3); tempY++){
+				if(tempX!=x || tempY!=y){
 					if(sudokuArray[tempX][tempY]==value){
 						return false;
 					}
@@ -56,10 +56,16 @@ public class Sudoku {
 				if(findLegal(x,y,value)==true){
 					sudokuArray[x][y]=value;
 					if(x<8){
-						solveSudoku(x+1, y);
+						System.out.println("trueX<8");
+						if(solveSudoku(x+1, y)!=false){
+							return true;
+						}
 					}
 					else if(y<8){
-						 solveSudoku(0, y+1);
+						 System.out.println("trueY<8");
+						 if(solveSudoku(0, y+1)!=false){
+							 return true;
+						 }
 					}
 					else{
 						return true;
@@ -67,6 +73,7 @@ public class Sudoku {
 				}
 			}
 			printSudoku();
+			System.out.println("false");
 			return false;
 			}
 		else{
