@@ -2,6 +2,7 @@ import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.WindowConstants;
+import java.util.Scanner;
 
 /* Creates a frame with a suduko board, gets users to import the known
  * numbers, and then solves if possible, else warns of invalid input
@@ -15,14 +16,31 @@ public class SudokuSolver extends JFrame implements ActionListener{
 	
 
 	public static void main(String[] args) {
-		int[][] test ={{0,0,0,6,0,0,0,7,0,0},{6,0,5,0,9,0,0,3,2},{0,0,0,0,0,7,0,0,0},
-				{0,3,9,0,2,8,0,0,6},{5,0,0,0,0,0,0,0,4},{1,0,0,7,4,0,9,2,0},
-				{0,0,0,9,0,0,0,0,0},{7,5,0,0,3,0,2,0,8},{0,1,0,0,0,6,0,0,0}};
+		Scanner input = new Scanner (System.in);
+		boolean correct = false;
+		int[][] test = new int[9][9];
+		while(!correct){
+			System.out.println("Please enter values of the sudoku starting from the top left, along"
+					+ " the x axis, then each subsequent row. Please enter blanks as naught.");
+			for(int y=0; y<9; y++){
+				for(int x = 0; x<9; x++){
+						test[x][y]= input.nextInt();
+					}
+				}
+			System.out.println("is the following sudoku correct? please enter y or n");
+			Sudoku sudokuTest = new Sudoku(test);
+			sudokuTest.printSudoku();
+			String answer = input.next();
+			if(answer.equals("y")){
+				correct = true;
+				sudokuTest.solveSudoku(0, 0);
+				}
 
-		Sudoku sudokuTest = new Sudoku(test);
-		sudokuTest.printSudoku();
-		sudokuTest.solveSudoku(0, 0);
-		}
+			}
+		input.close();
+	}
+
+
 		/*
 		SudokuSolver solverFrame = new SudokuSolver();
 		solverFrame.setSize(300,400);
@@ -30,6 +48,6 @@ public class SudokuSolver extends JFrame implements ActionListener{
 		solverFrame.setVisible(true);
 		JButton b1 = new JButton("disable middle button");
 */
-	}
+}
 
 
