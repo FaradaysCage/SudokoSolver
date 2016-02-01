@@ -9,9 +9,10 @@ import java.beans.PropertyChangeEvent;
 
 import javax.swing.*;
 
-/* Creates a frame with a suduko board, gets users to import the known
- * numbers, and then solves if possible, else warns of invalid input
- * numbers.
+/**
+ * Creates a frame with a suduko board, gets users to import the known numbers,
+ * and then solves if possible, else warns of invalid input numbers. Created By
+ * Ross Hanson
  */
 public class SudokuSolver extends JPanel implements PropertyChangeListener, ActionListener {
 
@@ -27,6 +28,10 @@ public class SudokuSolver extends JPanel implements PropertyChangeListener, Acti
 	// solve button
 	private JButton solveButton;
 
+	/**
+	 * Constructor for the class SudokuSolver that extends Frame. Makes panels,
+	 * JFormatedText fields and buttons, adds them to the frame.
+	 */
 	private SudokuSolver() {
 
 		valueFormat = NumberFormat.getNumberInstance();
@@ -56,18 +61,22 @@ public class SudokuSolver extends JPanel implements PropertyChangeListener, Acti
 				fieldPanel.add(fields[x][y]);
 			}
 		}
-
+		// Creates JButton
 		solveButton = new JButton("solve");
+
+		// Make JButton Listen to this class
 		solveButton.addActionListener(this);
 
+		// Adds JButton to panel
 		buttonPanel.add(solveButton);
 
+		// Adds panels to frame
 		add(fieldPanel);
 		add(buttonPanel);
 	}
 
-	/*
-	 * Called When a fields "value" property changes.
+	/**
+	 * Called when a fields "value" property changes.
 	 */
 	public void propertyChange(PropertyChangeEvent e) {
 		Object source = e.getSource();
@@ -80,7 +89,7 @@ public class SudokuSolver extends JPanel implements PropertyChangeListener, Acti
 		}
 	}
 
-	/*
+	/**
 	 * Button for solve, solves the sudoku, and updates the grid
 	 * 
 	 * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
@@ -98,36 +107,52 @@ public class SudokuSolver extends JPanel implements PropertyChangeListener, Acti
 
 	}
 
-	public static void main(String[] args) {
+	/**
+	 * Create the GUI and show it. For thread safety, this method should be
+	 * invoked from the event dispatch thread.
+	 */
+	private static void createAndShowGUI() {
+		// Create and set up the window
 		JFrame frame = new JFrame("SudokuSolver");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.add(new SudokuSolver());
-		frame.pack();
-		frame.setVisible(true);
-		/*
-		Scanner input = new Scanner(System.in);
-		boolean correct = false;
-		int[][] test = new int[9][9];
-		while (!correct) {
-			System.out.println("Please enter values of the sudoku starting from the top left, along"
-					+ " the x axis, then each subsequent row. Please enter blanks as naught.");
-			for (int y = 0; y < 9; y++) {
-				for (int x = 0; x < 9; x++) {
-					test[x][y] = input.nextInt();
-				}
-			}
-			System.out.println("is the following sudoku correct? please enter y or n");
-			Sudoku sudokuTest = new Sudoku(test);
-			sudokuTest.printSudoku();
-			String answer = input.next();
-			if (answer.equals("y")) {
-				correct = true;
-				sudokuTest.solveSudoku(0, 0);
-			}
 
-		}
-		input.close();
-		*/
+		// Creates instance of SudokuSolver and adds it to the frame
+		frame.add(new SudokuSolver());
+
+		// Sets the window to be the preferred size of its subcomponents
+		frame.pack();
+
+		// Displays window
+		frame.setVisible(true);
+
+		// stops windows from being resizable
+		frame.setResizable(false);
+
+	}
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				createAndShowGUI();
+			}
+		});
+		
+		//To solve Sudoku by using console instead of GUI
+		/*
+		 * Scanner input = new Scanner(System.in); boolean correct = false;
+		 * int[][] test = new int[9][9]; while (!correct) { System.out.println(
+		 * "Please enter values of the sudoku starting from the top left, along"
+		 * +
+		 * " the x axis, then each subsequent row. Please enter blanks as naught."
+		 * ); for (int y = 0; y < 9; y++) { for (int x = 0; x < 9; x++) {
+		 * test[x][y] = input.nextInt(); } } System.out.println(
+		 * "is the following sudoku correct? please enter y or n"); Sudoku
+		 * sudokuTest = new Sudoku(test); sudokuTest.printSudoku(); String
+		 * answer = input.next(); if (answer.equals("y")) { correct = true;
+		 * sudokuTest.solveSudoku(0, 0); }
+		 * 
+		 * } input.close();
+		 */
 
 	}
 
