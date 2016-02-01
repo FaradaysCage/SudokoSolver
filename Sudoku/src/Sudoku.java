@@ -1,9 +1,17 @@
-
+/*
+ * Class takes a sudoku upon construction, and provides print and solve methods to public
+ * 
+ */
 public class Sudoku {
-	int[][] sudokuArray = new int[9][9];
+	private int[][] sudokuArray = new int[9][9];
 	
 	public Sudoku(int[][] passSudoku){
 		sudokuArray = passSudoku;
+	}
+	
+	public int[][] returnSudoku(){
+		return sudokuArray;
+		
 	}
 	
 	private boolean findLegal(int x, int y, int value){
@@ -37,7 +45,7 @@ public class Sudoku {
 		}
 		return true;
 	}
-	
+	//Prints Sudoku
 	public void printSudoku(){
 		for(int y = 0; y<9; y++){
 			for (int x = 0; x<9; x++){
@@ -49,29 +57,34 @@ public class Sudoku {
 		System.out.println("@@@@@@@@@");
 	}
 
-	
+	/*
+	 * Solves sudoku matrix. It tests if number is blank, and if it is finds the legal values for 
+	 * for it. For each legal value it will try to proceed ‎to call itself for the next blank.
+	 * If it encounters failure, no possible values for a blank, it rolls back to the last blank
+	 * that still has a valid higher value.
+	 */
 	public boolean solveSudoku(int x, int y){
 		if(sudokuArray[x][y]==0){
 			for (int value=1; value<10; value++){
 				if(findLegal(x,y,value)==true){
 					sudokuArray[x][y]=value;
 					if(x<8){
-						System.out.println("trueX<8 + "+x +" "+y + " "+ value);
+						//System.out.println("trueX<8 + "+x +" "+y + " "+ value);
 						if(solveSudoku(x+1, y)!=false){
 							return true;
 						}
 						else{
-							System.out.println("falseX<8 + "+x +" "+y +" "+value);
+							//System.out.println("falseX<8 + "+x +" "+y +" "+value);
 							sudokuArray[x][y]=0;
 						}
 					}
 					else if(y<8){
-						 System.out.println("trueY<8 + "+x +" "+y);
+						 //System.out.println("trueY<8 + "+x +" "+y);
 						 if(solveSudoku(0, y+1)!=false){
 							 return true;
 						 }
 						 else{
-							 System.out.println("falseY<8 + "+x +" "+y);
+							 //System.out.println("falseY<8 + "+x +" "+y);
 							 sudokuArray[x][y]=0;
 						 }
 					}
@@ -81,8 +94,8 @@ public class Sudoku {
 					}
 				}
 			}
-			System.out.println("false + "+x +" "+y);
-			printSudoku();
+			//System.out.println("false + "+x +" "+y);
+			//printSudoku();
 			return false;
 			}
 		else{
