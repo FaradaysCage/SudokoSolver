@@ -1,4 +1,7 @@
-
+/*
+ * Class takes a sudoku upon construction, and provides print and solve methods to public
+ * 
+ */
 public class Sudoku {
 	int[][] sudokuArray = new int[9][9];
 	
@@ -37,7 +40,7 @@ public class Sudoku {
 		}
 		return true;
 	}
-	
+	//Prints Sudoku
 	public void printSudoku(){
 		for(int y = 0; y<9; y++){
 			for (int x = 0; x<9; x++){
@@ -49,7 +52,12 @@ public class Sudoku {
 		System.out.println("@@@@@@@@@");
 	}
 
-	
+	/*
+	 * Solves sudoku matrix. It tests if number is blank, and if it is finds the legal values for 
+	 * for it. For each legal value it will try to proceed ‎to call itself for the next blank.
+	 * If it encounters failure, no possible values for a blank, it rolls back to the last blank
+	 * that still has a valid higher value.
+	 */
 	public boolean solveSudoku(int x, int y){
 		if(sudokuArray[x][y]==0){
 			for (int value=1; value<10; value++){
