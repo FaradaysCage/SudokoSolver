@@ -3,10 +3,15 @@
  * 
  */
 public class Sudoku {
-	int[][] sudokuArray = new int[9][9];
+	private int[][] sudokuArray = new int[9][9];
 	
 	public Sudoku(int[][] passSudoku){
 		sudokuArray = passSudoku;
+	}
+	
+	public int[][] returnSudoku(){
+		return sudokuArray;
+		
 	}
 	
 	private boolean findLegal(int x, int y, int value){
@@ -64,22 +69,22 @@ public class Sudoku {
 				if(findLegal(x,y,value)==true){
 					sudokuArray[x][y]=value;
 					if(x<8){
-						System.out.println("trueX<8 + "+x +" "+y + " "+ value);
+						//System.out.println("trueX<8 + "+x +" "+y + " "+ value);
 						if(solveSudoku(x+1, y)!=false){
 							return true;
 						}
 						else{
-							System.out.println("falseX<8 + "+x +" "+y +" "+value);
+							//System.out.println("falseX<8 + "+x +" "+y +" "+value);
 							sudokuArray[x][y]=0;
 						}
 					}
 					else if(y<8){
-						 System.out.println("trueY<8 + "+x +" "+y);
+						 //System.out.println("trueY<8 + "+x +" "+y);
 						 if(solveSudoku(0, y+1)!=false){
 							 return true;
 						 }
 						 else{
-							 System.out.println("falseY<8 + "+x +" "+y);
+							 //System.out.println("falseY<8 + "+x +" "+y);
 							 sudokuArray[x][y]=0;
 						 }
 					}
@@ -89,8 +94,8 @@ public class Sudoku {
 					}
 				}
 			}
-			System.out.println("false + "+x +" "+y);
-			printSudoku();
+			//System.out.println("false + "+x +" "+y);
+			//printSudoku();
 			return false;
 			}
 		else{
